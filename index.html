@@ -59,23 +59,37 @@ header{padding-left:76px}
 #go{width:100%;margin-top:14px;padding:11px;border:0;border-radius:10px;background:var(--vo);color:var(--onv);font:inherit;font-weight:700;cursor:pointer}
 .chip{width:100%;text-align:left;padding:10px 12px;margin-bottom:4px;border:1px solid var(--vo);border-radius:10px;background:none;color:var(--ink);font:inherit;font-weight:600;cursor:pointer}.chip:hover{background:color-mix(in srgb,var(--vo) 10%,transparent)}.chip small{display:block;color:var(--vo);font-weight:600}
 @media(prefers-reduced-motion:reduce){#dr,#bd,.opt{transition:none;animation:none}}
-#c4{width:100%;display:block;cursor:pointer;touch-action:pan-y}.btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}.btns button{flex:1;min-width:140px;padding:8px 10px;border:1px solid var(--vo);border-radius:8px;background:none;color:var(--ink);font:inherit;font-weight:600;cursor:pointer}.btns button:disabled{opacity:.4;cursor:default}.btns button:hover:not(:disabled){background:color-mix(in srgb,var(--vo) 12%,transparent)}
 .nb{display:flex;align-items:center;gap:4px}.sl .nb input{width:96px;grid-column:auto;padding:3px 6px;border:1px solid var(--ln);border-radius:6px;background:var(--pn);color:var(--ink);font:inherit;font-size:13px;text-align:right}.nb em{font-style:normal;color:var(--mu);font-size:12px;min-width:26px}.sl input:disabled,.sl .nb input:disabled{opacity:.5}
+.ph{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px}.ph h2{margin:0}.tb{display:flex;gap:6px}
+.tb button{border:1px solid var(--ln);background:none;color:var(--ink);border-radius:8px;padding:4px 10px;font:inherit;font-size:12px;cursor:pointer;transition:border-color .2s,color .2s}.tb button:hover{border-color:var(--vo);color:var(--vo)}
+.zb{position:absolute;border:1.5px dashed var(--vo);background:color-mix(in srgb,var(--vo) 14%,transparent);pointer-events:none;z-index:2}
+.pn.fs{position:fixed;inset:0;z-index:80;margin:0;border-radius:0;overflow:auto;display:flex;flex-direction:column;padding:16px 20px;padding-top:calc(16px + env(safe-area-inset-top,0px))}
+.pn.fs canvas{height:calc(100vh - 110px)}.pn.fs svg{height:calc(100vh - 230px)}body.hasfs{overflow:hidden}#lf.up{z-index:90}.pn.fs{animation:none!important;background:var(--pn)}
+@media(min-width:901px){#lf{position:sticky;top:12px;align-self:start;max-height:calc(100vh - 24px);overflow-y:auto;padding-right:4px;scrollbar-width:thin}}
+@keyframes up{from{opacity:0;transform:translateY(10px)}}.pn{animation:up .5s ease both}main>div:nth-child(2) .pn:nth-child(2){animation-delay:.08s}main>div:nth-child(2) .pn:nth-child(3){animation-delay:.16s}
+.mb{font-size:12px;font-weight:700;padding:3px 10px;border-radius:12px;color:#fff;background:var(--mu);transition:background .3s;align-self:center;cursor:help}
+.hint{flex:1;color:var(--mu);font-size:12px;opacity:.85}@media(max-width:700px){.hint{display:none}}
+#met div[title]{cursor:help}
+.chips{display:flex;gap:6px;margin:8px 0 2px}.chips button{flex:1;padding:6px 4px;border:1px solid var(--ln);border-radius:8px;background:none;color:var(--ink);font:inherit;font-size:13px;cursor:pointer;transition:border-color .2s,background-color .2s}.chips button:hover{border-color:var(--vo)}.chips button.on{border-color:var(--vo);background:color-mix(in srgb,var(--vo) 14%,transparent);font-weight:600}
+#rd{min-height:80px}.rv{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--mu)}.rv b{color:var(--ink)}
+.pl{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0 6px}.pill{padding:3px 11px;border-radius:12px;font-size:12px;font-weight:600;border:1px solid var(--ln);color:var(--mu);transition:all .25s}.pill.on{background:var(--vo);color:var(--onv);border-color:var(--vo);box-shadow:0 0 12px color-mix(in srgb,var(--vo) 55%,transparent)}.st{font-size:12px;color:var(--mu)}
+.ft{text-align:center;color:var(--mu);font-size:12px;padding:0 20px 26px}kbd{border:1px solid var(--ln);border-bottom-width:2px;border-radius:5px;padding:0 6px;font:inherit;font-size:11px;background:var(--pn);color:var(--ink)}
+@media(prefers-reduced-motion:reduce){.pn{animation:none}.pill{transition:none}}
 </style></head><body>
 <div id="bd"></div><aside id="dr" aria-label="Circuit builder"><div class="dh"><h2>Build your rectifier</h2><button id="dx" aria-label="Close">✕</button></div><p class="dn">Answer the steps one by one. The simulation updates live behind this panel.</p><div id="stp"></div><button id="go">Show simulation</button></aside>
 <header style="position:relative"><button id="hb" aria-label="Open circuit builder" aria-expanded="false" aria-controls="dr"><i></i><i></i><i></i></button><button id="th" aria-pressed="false" aria-label="Toggle dark mode"><i class="st"></i><i class="st s2"></i><i class="st s3"></i><i class="cl"></i><span class="kn"></span></button><h1>Rectifier Lab</h1><p style="font-weight:600;color:var(--ink)">Rohit Kumar (24EE10083)</p><p>Single- and three-phase rectifiers with diodes or thyristors. Change the load and watch the waveforms respond.</p></header>
 <main>
-<div>
-<div class="pn" id="ctl"><h2>Circuit and load</h2><input type="checkbox" id="fw" hidden><button class="chip" id="chip"></button><div id="sls"></div></div>
-<div class="pn"><h2 id="ttl"></h2><svg id="sch" viewBox="0 0 440 250"></svg><div class="pb"><button id="pl">Pause</button><input id="sc" type="range" min="0" max="719" step="1" value="0" aria-label="Phase angle"><select id="sp" aria-label="Speed"><option value="0.25">0.25×</option><option value="0.5" selected>0.5×</option><option value="1">1×</option></select></div><p id="rd"></p></div>
-<div class="pn"><h2>Steady-state results</h2><div id="met"></div><p class="note" id="fm"></p></div>
-<div class="pn"><h2>Conduction mode map</h2><canvas id="c4"></canvas><div class="btns"><button id="jl">Set L to boundary</button><button id="ja">Set α to boundary</button></div><p class="note" id="mn"></p></div>
+<div id="lf">
+<div class="pn" id="ctl"><h2>Circuit and load</h2><input type="checkbox" id="fw" hidden><button class="chip" id="chip"></button><div class="chips" id="pre" role="group" aria-label="Load presets"><button data-p="R">R</button><button data-p="RL" class="on">R–L</button><button data-p="RLE">R–L–E</button><button data-p="reset" title="Reset all values">Reset</button></div><div id="sls"></div></div>
+<div class="pn"><div class="ph"><h2 id="ttl"></h2><span class="tb"><span id="mb" class="mb"></span><button class="fsb" title="Full screen" aria-label="Full screen">⛶</button></span></div><svg id="sch" viewBox="0 0 440 250"></svg><div class="pb"><button id="pl">Pause</button><input id="sc" type="range" min="0" max="719" step="1" value="0" aria-label="Phase angle"><select id="sp" aria-label="Speed"><option value="0.25">0.25×</option><option value="0.5" selected>0.5×</option><option value="1">1×</option></select></div><p id="rd"></p></div>
+<div class="pn"><h2>Steady-state results</h2><div id="met"></div></div>
 </div>
 <div>
-<div class="pn"><h2>Voltage waveforms</h2><div class="cv"><canvas id="c1"></canvas><i></i></div></div>
-<div class="pn"><h2>Current waveforms</h2><div class="cv"><canvas id="c2"></canvas><i></i></div><p class="note">Ideal sources and devices, instantaneous commutation, 50 Hz, 20° gate pulses. Phase a is shown for source current. Drag the marker on any plot (or click anywhere on it) to scrub and see which devices conduct. Red shading marks intervals where the load current is zero (discontinuous conduction).</p></div><div class="pn"><h2>Device conduction and gate pulses</h2><div class="cv"><canvas id="c3"></canvas><i></i></div><p class="note">Solid bars: device conducting. Pale bars (thyristors): gate pulse window starting at α.</p></div>
+<div class="pn"><div class="ph"><h2>Voltage waveforms</h2><small class="hint">drag: move cursor · right-drag: zoom · double-click: reset</small><span class="tb"><button class="rz" hidden>Reset zoom</button><button class="fsb" title="Full screen" aria-label="Full screen">⛶</button></span></div><div class="cv"><canvas id="c1"></canvas><i></i></div></div>
+<div class="pn"><div class="ph"><h2>Current waveforms</h2><small class="hint">drag: move cursor · right-drag: zoom · double-click: reset</small><span class="tb"><button class="rz" hidden>Reset zoom</button><button class="fsb" title="Full screen" aria-label="Full screen">⛶</button></span></div><div class="cv"><canvas id="c2"></canvas><i></i></div></div><div class="pn"><div class="ph"><h2>Device conduction and gate pulses</h2><small class="hint">drag: move cursor · right-drag: zoom · double-click: reset</small><span class="tb"><button class="rz" hidden>Reset zoom</button><button class="fsb" title="Full screen" aria-label="Full screen">⛶</button></span></div><div class="cv"><canvas id="c3"></canvas><i></i></div><p class="note">Solid bars: device conducting. Pale bars (thyristors): gate pulse window starting at α.</p></div>
 </div>
 </main>
+<footer class="ft"><kbd>Space</kbd> play/pause · <kbd>←</kbd> <kbd>→</kbd> step cursor · <kbd>T</kbd> theme · <kbd>M</kbd> circuit menu · <kbd>Esc</kbd> close</footer>
 <script>
 const $=id=>document.getElementById(id),D=Math.PI/180,P2=2*Math.PI,S={ph:'1',ft:'half',dv:'thyristor'};
 const SL=[['al','Firing angle α',0,180,30,'°','lin'],['vm','Peak phase voltage Vm',1,1e5,325,'V','log'],['f','Supply frequency f',1,2000,50,'Hz','log'],['r','Resistance R',1e-3,1e6,10,'Ω','log'],['l','Inductance L',0,1e5,50,'mH','log0',1e-3],['e','Back-EMF E',0,1e5,0,'V','log0',.1]];
@@ -94,6 +108,7 @@ function topo(){const h=S.ft=='half';
  if(h)return{th:[30,150,270].map(x=>x*D),ia:[1,0,0],v:ph3,src:ph3};
  return{th:[0,1,2,3,4,5].map(k=>(30+60*k)*D),ia:[1,1,0,-1,-1,0],v:t=>{const[a,b,c]=ph3(t);return[a-b,a-c,b-c,b-a,c-a,c-b]},src:ph3}}
 const N=1200,NP={'1half':1,'1full':2,'3half':3,'3full':6},MC=['#2FB27A','#F2B31B','#E5584F'],MN=['Continuous (CCM)','Boundary (critical)','Discontinuous (DCM)'];
+const TIP={'Vdc':'Average (DC) output voltage across the load','Vrms (out)':'RMS value of the output voltage','Idc':'Average load current','Irms (load)':'RMS value of the load current','Ripple factor':'√(Vrms² − Vdc²) / Vdc: how much AC is left in the output voltage','Input PF':'Real power / (source rms voltage × source rms current), phase a','Mode':'CCM: current never reaches zero · Boundary: just touches zero · DCM: zero for part of the cycle','Theory Vdc':'Closed-form Vdc for this case. Shown only when a valid formula exists.'};
 function cls(i){const k=i.length/2;let z=0,mn=1e9,sm=0;for(let n=k;n<2*k;n++){if(i[n]==0)z++;if(i[n]<mn)mn=i[n];sm+=i[n]}return z/k>.01?2:(mn<.03*Math.max(sm/k,1e-15)?1:0)}
 function beta(q,a){const k=q.i.length/2;const n=Math.floor(a/P2*k);for(let j=n+1;j<n+k&&j<q.i.length;j++)if(q.i[j]==0&&q.i[j-1]>0)return j*P2/k;return null}
 function theory(r){const{k,Vm,a,L,E,fw,md}=r,c=Math.cos(a),K=3*Math.sqrt(3)*Vm,pi=Math.PI;
@@ -113,17 +128,20 @@ function sim(o={}){const T=topo(),Vm=+$('vm').value,R=+$('r').value,L=(o.L!==und
   if(s>=0){vo=v[s];const iss=(vo-E)/R;i=L>1e-7?iss+(i-iss)*Math.exp(-R*ts/L):iss;if(i<=1e-12){i=0;s=-1;vo=E}}let fr=0;if(s<0&&fw&&i>0){fr=1;vo=0;const iss=-E/R;i=L>1e-7?iss+(i-iss)*Math.exp(-R*ts/L):iss;if(i<=1e-12){i=0;fr=0;vo=E}}
   if(n>=(cyc-2)*Nn){q.vo.push(vo);q.p.push(s);q.f.push(fr);q.i.push(i);if(!o.fast){q.ia.push(s>=0?T.ia[s]*i:0);T.src(t).forEach((x,j)=>q.s[j].push(x*Vm))}}}
  return{q,Vm,a0,thy,R,L,E,fw,Nn,fq}}
+let VX=[0,720],VY={c1:null,c2:null},RD=()=>{},SG="";
+const nst=r=>[.1,.2,.5,1,2,5,10,15,30,60,90,180].find(x=>r/x<=12)||180;
 function plot(cv,ser,unit,zr){const d=devicePixelRatio||1,W=cv.clientWidth,H=cv.clientHeight;cv.width=W*d;cv.height=H*d;const c=cv.getContext('2d');c.scale(d,d);
  const st=getComputedStyle(document.body),ink=st.color,ln=getComputedStyle(document.documentElement).getPropertyValue('--ln'),m={l:48,r:10,t:26,b:24};
- let lo=0,hi=0;ser.forEach(s=>s.d.forEach(x=>{lo=Math.min(lo,x);hi=Math.max(hi,x)}));const pd=(hi-lo)*.1||1;hi+=pd;if(lo<0)lo-=pd;
+ let lo=0,hi=0;ser.forEach(s=>s.d.forEach(x=>{lo=Math.min(lo,x);hi=Math.max(hi,x)}));const pd=(hi-lo)*.1||1;hi+=pd;if(lo<0)lo-=pd;const vy=VY[cv.id];if(vy){lo=vy[0];hi=vy[1]}
  const rg=hi-lo,u=Math.pow(10,Math.floor(Math.log10(rg/5))),sp=[1,2,5,10].map(x=>x*u).find(x=>rg/x<=6),n=2*N;
- const X=i=>m.l+(W-m.l-m.r)*i/(n-1),Y=v=>H-m.b-(H-m.t-m.b)*(v-lo)/(hi-lo);
+ const X=i=>m.l+(W-m.l-m.r)*((i/(n-1)*720)-VX[0])/(VX[1]-VX[0]),Y=v=>H-m.b-(H-m.t-m.b)*(v-lo)/(hi-lo);
  c.font='11px Figtree,sans-serif';c.textAlign='right';c.lineWidth=1;
  for(let v=Math.ceil(lo/sp)*sp;v<=hi;v+=sp){c.strokeStyle=ln;c.beginPath();c.moveTo(m.l,Y(v));c.lineTo(W-m.r,Y(v));c.stroke();c.fillStyle=ink;c.fillText(+v.toPrecision(3),m.l-6,Y(v)+4)}
- c.textAlign='center';for(let a=0;a<=720;a+=60){const x=X(a/720*(n-1));c.strokeStyle=ln;c.beginPath();c.moveTo(x,m.t);c.lineTo(x,H-m.b);c.stroke();if(a%180==0){c.fillStyle=ink;c.fillText(a+'°',x,H-8)}}
+ cv._v={lo,hi,m,W,H};c.textAlign='center';{const gs=nst(VX[1]-VX[0]),lk=Math.max(1,Math.ceil(46/((W-m.l-m.r)*gs/(VX[1]-VX[0]))));for(let q=Math.ceil(VX[0]/gs);q*gs<=VX[1]+1e-9;q++){const a=q*gs,x=X(a/720*(n-1));c.strokeStyle=ln;c.beginPath();c.moveTo(x,m.t);c.lineTo(x,H-m.b);c.stroke();if(q%lk==0){c.fillStyle=ink;c.fillText(+a.toFixed(1)+'°',x,H-8)}}}
+ c.save();c.beginPath();c.rect(m.l,m.t,W-m.l-m.r,H-m.t-m.b);c.clip();
  if(zr){c.fillStyle='rgba(229,88,79,.16)';let s0=-1;for(let i=0;i<=n;i++){const z=i<n&&zr[i]==0;if(z&&s0<0)s0=i;if(!z&&s0>=0){c.fillRect(X(s0),m.t,X(i)-X(s0),H-m.t-m.b);s0=-1}}}
  c.strokeStyle=ink;c.lineWidth=1.4;c.beginPath();c.moveTo(m.l,Y(0));c.lineTo(W-m.r,Y(0));c.stroke();
- ser.forEach(s=>{c.strokeStyle=s.c;c.lineWidth=s.w||1.8;c.beginPath();s.d.forEach((v,i)=>i?c.lineTo(X(i),Y(v)):c.moveTo(X(i),Y(v)));c.stroke()});
+ ser.forEach(s=>{c.strokeStyle=s.c;c.lineWidth=s.w||1.8;c.beginPath();s.d.forEach((v,i)=>i?c.lineTo(X(i),Y(v)):c.moveTo(X(i),Y(v)));c.stroke()});c.restore();
  let x=m.l;c.textAlign='left';ser.forEach(s=>{c.fillStyle=s.c;c.fillRect(x,8,14,4);c.fillStyle=ink;c.fillText(s.n,x+19,14);x+=s.n.length*6.4+36});
  c.save();c.translate(11,H/2);c.rotate(-Math.PI/2);c.textAlign='center';c.fillStyle=ink;c.fillText(unit,0,0);c.restore()}
 function schem(){const th=S.dv=='thyristor',p=th?'T':'D',k=S.ph+S.ft,Rv=eng(+$('r').value,'Ω'),Lv=eng($('l').value/1e3,'H'),Ev=eng(+$('e').value,'V'),fw=$('fw').checked;let o='';
@@ -145,48 +163,25 @@ function schem(){const th=S.dv=='thyristor',p=th?'T':'D',k=S.ph+S.ft,Rv=eng(+$('
   w('1','',[170,35],[240,35]);w('1,3','',[240,35],[310,35]);w('1,3,5','',[310,35],[350,35]);w('L','',[350,35],[400,35],[400,85]);ld(400,85);
   w('L','',[400,155],[400,205],[350,205]);w('4,6,2','',[350,205],[310,205]);w('4,6','',[310,205],[240,205]);w('4','',[240,205],[170,205]);fd(350,35,205)}
  $('sch').innerHTML=o}
-function run(){M=sim();const{q,Vm,a0,thy}=M,al=thy?a0:0,$$=$('s_al');$$.classList.toggle('off',!thy);$('al').disabled=!thy;$('al_s').disabled=!thy;
+function run(){M=sim();{const sg=[S.ph,S.ft,S.dv,$('fw').checked,$('vm').value,$('r').value,$('l').value,$('e').value,$('al').value,$('f').value].join();if(sg!==SG){SG=sg;VY.c1=VY.c2=null}}const{q,Vm,a0,thy}=M,al=thy?a0:0,$$=$('s_al');$$.classList.toggle('off',!thy);$('al').disabled=!thy;$('al_s').disabled=!thy;
  const nm={'1half':'Single-phase half-wave','1full':'Single-phase full-wave bridge','3half':'Three-phase half-wave (3-pulse)','3full':'Three-phase full-wave bridge (6-pulse)'}[S.ph+S.ft];
  $('ttl').textContent=nm+(thy?' – thyristor':' – diode');schem();
  const m=a=>{let x=0;for(let n=N;n<2*N;n++)x+=a(n);return x/N},Vd=m(n=>q.vo[n]),Vr=Math.sqrt(m(n=>q.vo[n]**2)),Id=m(n=>q.i[n]),Ir=Math.sqrt(m(n=>q.i[n]**2)),Ia=Math.sqrt(m(n=>q.ia[n]**2)),Pin=m(n=>q.s[0][n]*q.ia[n]);
  const md=cls(q.i),be=beta(q,al),th=theory({k:S.ph+S.ft,Vm,a:al,L:M.L,E:M.E,fw:M.fw,md,beta:be});
  const rf=Vd>1e-12?Math.sqrt(Math.max(Vr*Vr-Vd*Vd,0))/Vd:0,pf=Ia>1e-15?Pin/(Vm/Math.SQRT2*Ia):0;
  let zc=0;for(let n=N;n<2*N;n++)if(q.i[n]==0)zc++;const gam=(1-zc/N)*360/NP[S.ph+S.ft];
- $('met').innerHTML=[['Vdc',eng(Vd,'V')],['Vrms (out)',eng(Vr,'V')],['Idc',eng(Id,'A')],['Irms (load)',eng(Ir,'A')],['Ripple factor',rf.toFixed(2)],['Input PF',pf.toFixed(2)],['Mode',`<span style="color:${MC[md]}">●</span> ${['CCM','Boundary','DCM'][md]}`],['Theory Vdc',th?eng(th.v,'V'):'n/a']].map(a=>`<div>${a[0]}<b>${a[1]}</b></div>`).join('');
- const msg=md==0?'Continuous: the load current never reaches zero.':md==1?'Boundary: the current just touches zero before the next device conducts.':`Discontinuous: the current is zero for ${(zc/N*100).toFixed(0)}% of the cycle; each pulse conducts about ${gam.toFixed(0)}°.`;
- $('fm').innerHTML=`${msg}<br>`+(th?`Theory: Vdc = ${th.f} = ${eng(th.v,'V')} (simulation differs by ${Math.abs((Vd-th.v)/Math.max(Math.abs(th.v),1e-6)*100).toFixed(2)} %).`:'No simple closed-form Vdc for this case (E ≠ 0 in discontinuous mode, or an inductive 3-phase load in discontinuous mode), so only the simulation is shown.');
+ $('met').innerHTML=[['Vdc',eng(Vd,'V')],['Vrms (out)',eng(Vr,'V')],['Idc',eng(Id,'A')],['Irms (load)',eng(Ir,'A')],['Ripple factor',rf.toFixed(2)],['Input PF',pf.toFixed(2)],['Mode',`<span style="color:${MC[md]}">●</span> ${['CCM','Boundary','DCM'][md]}`],['Theory Vdc',th?eng(th.v,'V'):'n/a']].map(a=>`<div title="${TIP[a[0]]||''}">${a[0]}<b>${a[1]}</b></div>`).join('');{const mb=$('mb');mb.textContent=['CCM','Boundary','DCM'][md];mb.style.background=MC[md];mb.style.color=md==1?'#3a2a00':'#fff';mb.title=MN[md]}
  const cs=['#8795A3','#B9A56B','#7DA38F'],nn=['va','vb','vc'];
- plot($('c1'),[...q.s.map((d,j)=>({d,c:cs[j],n:q.s.length>1?nn[j]:'vs',w:1.2})),{d:q.vo,c:getComputedStyle(document.documentElement).getPropertyValue('--vo'),n:'vo (load)',w:2.4}],'Volts');
- plot($('c2'),[{d:q.ia,c:getComputedStyle(document.documentElement).getPropertyValue('--ca'),n:'ia (source)',w:1.4},{d:q.i,c:getComputedStyle(document.documentElement).getPropertyValue('--ci'),n:'io (load)',w:2.4}],'Amps',q.i);drawMaps();strip();setCur();clearTimeout(mt);mt=setTimeout(maps,170)}
+ RD=()=>{plot($('c1'),[...q.s.map((d,j)=>({d,c:cs[j],n:q.s.length>1?nn[j]:'vs',w:1.2})),{d:q.vo,c:getComputedStyle(document.documentElement).getPropertyValue('--vo'),n:'vo (load)',w:2.4}],'Volts');
+ plot($('c2'),[{d:q.ia,c:getComputedStyle(document.documentElement).getPropertyValue('--ca'),n:'ia (source)',w:1.4},{d:q.i,c:getComputedStyle(document.documentElement).getPropertyValue('--ci'),n:'io (load)',w:2.4}],'Amps',q.i);strip();setCur();updZ()};RD()}
 
-let mt,MP=null,KC={};
-const O0={fast:1,N:240,cap:40},zc1=i=>{const k=i.length/2;for(let n=k;n<2*k;n++)if(i[n]==0)return 1;return 0},gi=(key,x)=>sim(Object.assign({},O0,{[key]:x})).q.i;
-const LV=j=>Math.pow(10,-3+8*(j+.5)/60);
-function maps(){if(!M)return;const thy=M.thy,base=[S.ph,S.ft,S.dv,M.fw,M.Vm,M.R,M.E,$('f').value].join(),kL=base+','+$('al').value,kA=base+','+$('l').value;MP=MP||{};
- if(KC.L!==kL){KC.L=kL;MP.cl=[];for(let j=0;j<60;j++)MP.cl.push(cls(gi('L',LV(j))));
-  if(!zc1(gi('L',0)))MP.Lc=0;else if(zc1(gi('L',1e5)))MP.Lc=null;else{let lo=1e-3,hi=1e5;for(let j=0;j<18;j++){const m=Math.sqrt(lo*hi);if(zc1(gi('L',m)))lo=m;else hi=m}MP.Lc=hi}}
- if(thy&&KC.A!==kA){KC.A=kA;MP.ca=[];for(let j=0;j<60;j++)MP.ca.push(cls(gi('a',(j+.5)*3)));
-  if(zc1(gi('a',0))||!zc1(gi('a',180)))MP.Ac=null;else{let lo=0,hi=180;for(let j=0;j<12;j++){const m=(lo+hi)/2;if(zc1(gi('a',m)))hi=m;else lo=m}MP.Ac=lo}}
- drawMaps()}
-function drawMaps(){const cv=$('c4');if(!cv||!MP||!MP.cl||!M)return;const thy=M.thy,d=devicePixelRatio||1,W=cv.clientWidth,H=thy?172:92;cv.style.height=H+'px';cv.width=W*d;cv.height=H*d;const c=cv.getContext('2d');c.scale(d,d);
- const ink=getComputedStyle(document.body).color,mL=10,bw=W-20;c.font='11px Figtree,sans-serif';let x=mL;
- MN.forEach((n,j)=>{c.fillStyle=MC[j];c.fillRect(x,5,10,10);c.fillStyle=ink;c.textAlign='left';c.fillText(n,x+14,14);x+=c.measureText(n).width+22});
- const strip=(y,t,arr,mx,u,val,cr,lg)=>{c.fillStyle=ink;c.textAlign='left';c.font='600 12px Figtree,sans-serif';c.fillText(t,mL,y);c.font='11px Figtree,sans-serif';
-  const P=v=>lg?Math.max(0,Math.log10(Math.max(v,1e-3)/1e-3)/8):Math.min(v,mx)/mx,cw=bw/arr.length;arr.forEach((v,j)=>{c.fillStyle=MC[v];c.fillRect(mL+j*cw,y+8,cw+.6,24)});
-  c.fillStyle=ink;c.textAlign='center';for(let q=0;q<=4;q++)c.fillText(lg?eng(1e-3*Math.pow(10,2*q)/1e3,'H'):Math.round(mx*q/4)+u,mL+Math.min(Math.max(bw*q/4,18),bw-18),y+46);
-  if(cr!=null){const px=mL+bw*P(cr);c.setLineDash([3,3]);c.strokeStyle=ink;c.lineWidth=1.5;c.beginPath();c.moveTo(px,y+6);c.lineTo(px,y+34);c.stroke();c.setLineDash([])}
-  const px=mL+bw*P(val);c.fillStyle=ink;c.beginPath();c.moveTo(px-6,y+2);c.lineTo(px+6,y+2);c.lineTo(px,y+12);c.fill();c.fillRect(px-1.5,y+8,3,28)};
- strip(36,'Mode vs inductance L (log scale)',MP.cl,500,'',+$('l').value,MP.Lc,true);
- if(thy&&MP.ca)strip(112,'Mode vs firing angle α',MP.ca,180,'°',+$('al').value,MP.Ac,false);
- $('jl').disabled=MP.Lc==null||MP.Lc==0;$('ja').style.display=thy?'':'none';$('ja').disabled=!thy||MP.Ac==null;
- $('mn').textContent=(MP.Lc==null?'Continuous conduction is not reachable up to 100 H with these settings.':MP.Lc==0?'Conduction is continuous for any L with these settings.':`Boundary at L ≈ ${eng(MP.Lc/1e3,'H')}: more inductance gives continuous conduction, less gives discontinuous.`)+(thy&&MP.Ac!=null?` Boundary at α ≈ ${MP.Ac.toFixed(0)}°: smaller α is continuous.`:'')+' The marker is your current setting (dashed line = boundary). Click or drag a bar to change L or α. Map uses a coarser, faster simulation.'}
 let M,ang=0,play=!matchMedia('(prefers-reduced-motion:reduce)').matches,lt=0;
 const DMAP={'1half':[[1]],'1full':[[1,3],[2,4]],'3half':[[1],[2],[3]],'3full':[[1,6],[1,2],[3,2],[3,4],[5,4],[5,6]]},NDV={'1half':1,'1full':4,'3half':3,'3full':6},cssv=n=>getComputedStyle(document.documentElement).getPropertyValue(n);
-function strip(){const k=S.ph+S.ft,nd=NDV[k],cv=$('c3'),rh=22,dm=DMAP[k],pre=S.dv=='thyristor'?'T':'D';cv.style.height=((nd+($('fw').checked?1:0))*rh+36)+'px';
+function strip(){const k=S.ph+S.ft,nd=NDV[k],cv=$('c3'),pn=cv.closest('.pn'),rh=pn.classList.contains('fs')?Math.min(70,Math.max(22,(innerHeight-210)/(nd+($('fw').checked?1:0)))):22,dm=DMAP[k],pre=S.dv=='thyristor'?'T':'D';cv.style.height=((nd+($('fw').checked?1:0))*rh+36)+'px';
  const d=devicePixelRatio||1,W=cv.clientWidth,H=cv.clientHeight;cv.width=W*d;cv.height=H*d;const c=cv.getContext('2d');c.scale(d,d);
- const ink=getComputedStyle(document.body).color,ln=cssv('--ln'),vo=cssv('--vo'),mL=48,mR=10,X=a=>mL+(W-mL-mR)*a/720,top=8,bar=(a,b,y,h)=>{a=Math.max(a,0);b=Math.min(b,720);if(b>a)c.fillRect(X(a),y,X(b)-X(a),h)};
+ const ink=getComputedStyle(document.body).color,ln=cssv('--ln'),vo=cssv('--vo'),mL=48,mR=10,X=a=>mL+(W-mL-mR)*(a-VX[0])/(VX[1]-VX[0]),top=8,bar=(a,b,y,h)=>{a=Math.max(a,VX[0]);b=Math.min(b,VX[1]);if(b>a)c.fillRect(X(a),y,X(b)-X(a),h)};
  c.font='11px Figtree,sans-serif';c.lineWidth=1;
- for(let a=0;a<=720;a+=60){c.strokeStyle=ln;c.beginPath();c.moveTo(X(a),top);c.lineTo(X(a),H-22);c.stroke();if(a%180==0){c.fillStyle=ink;c.textAlign='center';c.fillText(a+'°',X(a),H-6)}}
+ {const gs=nst(VX[1]-VX[0]),lk=Math.max(1,Math.ceil(46/((W-mL-mR)*gs/(VX[1]-VX[0]))));for(let q=Math.ceil(VX[0]/gs);q*gs<=VX[1]+1e-9;q++){const a=q*gs;c.strokeStyle=ln;c.beginPath();c.moveTo(X(a),top);c.lineTo(X(a),H-22);c.stroke();if(q%lk==0){c.fillStyle=ink;c.textAlign='center';c.fillText(+a.toFixed(1)+'°',X(a),H-6)}}}
  for(let n=1;n<=nd+($('fw').checked?1:0);n++){const y=top+(n-1)*rh;c.fillStyle=ink;c.globalAlpha=.06;c.fillRect(mL,y+3,W-mL-mR,rh-6);c.globalAlpha=1;c.textAlign='right';c.fillText(n>nd?'DF':pre+n,mL-8,y+rh/2+4);
   if(S.dv=='thyristor'&&n<=nd){c.fillStyle=vo;c.globalAlpha=.28;dm.forEach((ds,kk)=>{if(ds.includes(n)){const st=((topo().th[kk]+M.a0)/D)%360;[-360,0,360].forEach(o=>bar(st+o,st+o+20,y+5,rh-10))}});c.globalAlpha=1}
   c.fillStyle=vo;let st=-1;for(let i=0;i<=2*N;i++){const on=i<2*N&&(n>nd?M.q.f[i]:dm[M.q.p[i]]&&dm[M.q.p[i]].includes(n));if(on&&st<0)st=i;if(!on&&st>=0){bar(st*360/N,i*360/N,y+5,rh-10);st=-1}}}}
@@ -195,12 +190,13 @@ function setCur(){if(!M)return;const q=M.q,i=Math.min(2*N-1,Math.floor(ang*N/360
  document.querySelectorAll('#sch .cw').forEach(e=>{const p=e.dataset.p,a=p=='*'?s>=0:p=='L'?(s>=0||!!f):p.split(',').some(x=>on.has(x)),rv=a&&e.dataset.r&&e.dataset.r.split(',').some(x=>on.has(x));e.classList.toggle('cur',a);e.classList.toggle('rv',!!rv)});
  const lr=$('ldr');if(lr)lr.classList.toggle('on',s>=0||!!f);
  const lb=Math.round(ang)+'° · '+([...on].map(x=>x=='F'?'DF':pre+x).join(' ')||'none');
- ['c1','c2','c3'].forEach(a=>{const cv=$(a),m=cv.nextElementSibling;m.style.left=(48+(cv.clientWidth-58)*ang/720)+'px';m.dataset.t=lb;m.style.setProperty('--bl',ang<400?'8px':'-8px');m.style.setProperty('--tx',ang<400?'0':'-100%')});
+ ['c1','c2','c3'].forEach(a=>{const cv=$(a),m=cv.nextElementSibling;const pa=(ang-VX[0])/(VX[1]-VX[0]);m.style.display=pa<0||pa>1?'none':'';m.style.left=(48+(cv.clientWidth-58)*pa)+'px';m.dataset.t=a=='c1'?Math.round(ang)+'° · vo '+eng(q.vo[i],'V'):a=='c2'?Math.round(ang)+'° · io '+eng(q.i[i],'A'):lb;m.style.setProperty('--bl',pa<.55?'8px':'-8px');m.style.setProperty('--tx',pa<.55?'0':'-100%')});
  $('sc').value=Math.floor(ang);
  const off=[];for(let n=1;n<=nd;n++)if(!on.has(''+n))off.push(pre+n);if(fo&&!f)off.push('DF');const ps=q.p[Math.max(0,i-10)];
  let cm='';if(s>=0&&ps>=0&&ps!==s){const a=dm[ps].filter(x=>!dm[s].includes(x)).map(x=>pre+x),b=dm[s].filter(x=>!dm[ps].includes(x)).map(x=>pre+x);cm=`<br>Commutation: current moves from ${a.join(', ')} to ${b.join(', ')}.`}
  else if(s>=0&&ps<0)cm='<br>Turn-on: the device became forward-biased'+(S.dv=='thyristor'?' and was triggered.':'.');
- $('rd').innerHTML=`<b>ωt = ${Math.round(ang)}°</b> &nbsp; vo = ${eng(q.vo[i],'V')} &nbsp; io = ${eng(q.i[i],'A')}<br>`+(s>=0?`Conducting: <b>${[...on].map(x=>pre+x).join(', ')}</b>. Blocking: ${off.join(', ')||'none'}.${cm}`:(f?'Freewheeling: DF carries the load current, the source current is zero and vo is clamped to 0.':'No device conducting: the load current is zero.'))}
+ const nm=[];for(let n=1;n<=nd;n++)nm.push([pre+n,on.has(''+n)]);if(fo)nm.push(['DF',!!f]);
+ $('rd').innerHTML=`<div class="rv"><span>ωt <b>${Math.round(ang)}°</b></span><span>vo <b>${eng(q.vo[i],'V')}</b></span><span>io <b>${eng(q.i[i],'A')}</b></span></div><div class="pl">${nm.map(a=>`<span class="pill${a[1]?' on':''}">${a[0]}</span>`).join('')}</div><div class="st">${s>=0?'Conducting: '+[...on].map(x=>pre+x).join(', '):f?'DF carries the load current (source current is zero).':'No device conducting: load current is zero.'}${cm.replace(/^<br>/,' · ')}</div>`}
 function tick(t){if(play&&M){ang=(ang+Math.min(t-lt,50)/1000*360*$('sp').value)%720;setCur()}lt=t;requestAnimationFrame(tick)}
 function pb(){$('pl').textContent=play?'Pause':'Play'}
 $('pl').onclick=()=>{play=!play;pb()};$('sc').oninput=e=>{play=false;pb();ang=+e.target.value;setCur()};
@@ -208,11 +204,24 @@ $('pl').onclick=()=>{play=!play;pb()};$('sc').oninput=e=>{play=false;pb();ang=+e
 addEventListener('resize',run);function theme(t,save){document.documentElement.dataset.theme=t;$('th').title=t=='dark'?'Switch to light mode':'Switch to dark mode';$('th').setAttribute('aria-pressed',t=='dark');if(save){try{localStorage.setItem('rl-theme',t)}catch(e){}}if(M)run()}
 $('th').onclick=()=>theme(document.documentElement.dataset.theme=='dark'?'light':'dark',true);
 let t0;try{t0=localStorage.getItem('rl-theme')}catch(e){}theme(t0||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light'));
-function drag(e,cv){const r=cv.getBoundingClientRect();ang=Math.max(0,Math.min(719.9,(e.clientX-r.left-48)/(r.width-58)*720));setCur()}
-['c1','c2','c3'].forEach(id=>{const cv=$(id),bx=cv.parentElement;let dn=false;bx.tabIndex=0;bx.setAttribute('role','slider');bx.setAttribute('aria-label','Phase angle cursor, arrow keys to move');
- bx.addEventListener('pointerdown',e=>{dn=true;play=false;pb();bx.setPointerCapture(e.pointerId);drag(e,cv)});
- bx.addEventListener('pointermove',e=>{if(dn)drag(e,cv)});
- ['pointerup','pointercancel'].forEach(t=>bx.addEventListener(t,()=>{dn=false}));
+function zStart(e,bx){const r=bx.getBoundingClientRect(),z=document.createElement('div');z.className='zb';bx.appendChild(z);const o={x:e.clientX-r.left,y:e.clientY-r.top,z,bx};zRect(o,o.x,o.y);return o}
+function zRect(o,x,y){Object.assign(o.z.style,{left:Math.min(o.x,x)+'px',top:Math.min(o.y,y)+'px',width:Math.abs(x-o.x)+'px',height:Math.abs(y-o.y)+'px'});o.cx=x;o.cy=y}
+function zMove(e,o){const r=o.bx.getBoundingClientRect();zRect(o,Math.max(0,Math.min(r.width,e.clientX-r.left)),Math.max(0,Math.min(r.height,e.clientY-r.top)))}
+function zEnd(cv,o){o.z.remove();const W=cv.clientWidth,x0=Math.min(o.x,o.cx),x1=Math.max(o.x,o.cx),y0=Math.min(o.y,o.cy),y1=Math.max(o.y,o.cy);if(x1-x0<8)return;
+ const f=px=>VX[0]+(VX[1]-VX[0])*Math.max(0,Math.min(1,(px-48)/(W-58))),a0=f(x0),a1=f(x1);if(a1-a0<.3)return;VX=[a0,a1];
+ const v=cv._v;if(v&&y1-y0>=8){const g=py=>v.lo+(v.hi-v.lo)*(v.H-v.m.b-py)/(v.H-v.m.t-v.m.b);VY[cv.id]=[g(Math.min(y1,v.H-v.m.b)),g(Math.max(y0,v.m.t))]}RD()}
+function resetZoom(){VX=[0,720];VY.c1=VY.c2=null;RD()}
+function updZ(){const z=VX[0]!=0||VX[1]!=720||VY.c1||VY.c2;document.querySelectorAll('.rz').forEach(b=>b.hidden=!z)}
+function fs(pn,on){pn.classList.toggle('fs',on);$('lf').classList.toggle('up',on&&!!pn.closest('#lf'));document.body.classList.toggle('hasfs',on);const b=pn.querySelector('.fsb');b.textContent=on?'✕ Exit':'⛶';b.title=on?'Exit full screen (Esc)':'Full screen';
+ if(on&&pn.requestFullscreen)pn.requestFullscreen().catch(()=>{});if(!on&&document.fullscreenElement)document.exitFullscreen().catch(()=>{});setTimeout(()=>{if(M)RD()},90)}
+document.querySelectorAll('.fsb').forEach(b=>b.onclick=()=>{const pn=b.closest('.pn');fs(pn,!pn.classList.contains('fs'))});
+document.querySelectorAll('.rz').forEach(b=>b.onclick=resetZoom);
+document.addEventListener('fullscreenchange',()=>{const p=document.querySelector('.pn.fs');if(p&&!document.fullscreenElement)fs(p,false)});
+function drag(e,cv){const r=cv.getBoundingClientRect();const p=Math.max(0,Math.min(1,(e.clientX-r.left-48)/(r.width-58)));ang=Math.min(719.9,VX[0]+p*(VX[1]-VX[0]));setCur()}
+['c1','c2','c3'].forEach(id=>{const cv=$(id),bx=cv.parentElement;let dn=false,zs=null;bx.tabIndex=0;bx.title='Drag: move cursor · Right-drag or Shift-drag: zoom · Double-click: reset';bx.setAttribute('role','slider');bx.setAttribute('aria-label','Phase angle cursor, arrow keys to move');
+ bx.addEventListener('pointerdown',e=>{if(e.button==2||e.shiftKey){e.preventDefault();bx.setPointerCapture(e.pointerId);zs=zStart(e,bx);return}dn=true;play=false;pb();bx.setPointerCapture(e.pointerId);drag(e,cv)});
+ bx.addEventListener('pointermove',e=>{if(zs)zMove(e,zs);else if(dn)drag(e,cv)});bx.addEventListener('contextmenu',e=>e.preventDefault());bx.addEventListener('dblclick',resetZoom);
+ ['pointerup','pointercancel'].forEach(t=>bx.addEventListener(t,e=>{if(zs){zEnd(cv,zs);zs=null}dn=false}));
  bx.addEventListener('keydown',e=>{if(e.key=='ArrowRight'||e.key=='ArrowLeft'){e.preventDefault();play=false;pb();ang=(ang+(e.key=='ArrowRight'?5:-5)+720)%720;setCur()}})});
 const ST=[['ph','Supply',[['1','Single-phase','One AC source'],['3','Three-phase','Three AC phases, 120° apart']]],
 ['ft','Rectifier type',[['half','Half-wave','One conducting path per phase'],['full','Full-wave','Bridge, uses both half-cycles']]],
@@ -229,10 +238,15 @@ $('stp').onclick=e=>{const b=e.target.closest('button');if(!b)return;if(b.datase
  if(k=='ld'){const[l,en]=LP[v];setV('l',l);setV('e',en*+$('vm').value)}
  if(step<ST.length-1)step++;dr();run()};
 $('hb').onclick=()=>od(true);$('dx').onclick=$('bd').onclick=$('go').onclick=()=>od(false);$('chip').onclick=()=>{step=0;od(true)};
-addEventListener('keydown',e=>{if(e.key=='Escape'&&document.body.classList.contains('dopen'))od(false)});
+addEventListener('keydown',e=>{if(e.key=='Escape'){const p=document.querySelector('.pn.fs');if(p)fs(p,false);else if(document.body.classList.contains('dopen'))od(false);return}
+ if(e.key.toLowerCase()=='m'&&!(e.ctrlKey||e.metaKey||e.altKey)&&!/INPUT|SELECT|TEXTAREA/.test(e.target.tagName)){e.preventDefault();od(!document.body.classList.contains('dopen'));return}
+ const t=e.target;if(e.ctrlKey||e.metaKey||e.altKey||/INPUT|SELECT|TEXTAREA|BUTTON/.test(t.tagName)||document.body.classList.contains('dopen'))return;const k=e.key.toLowerCase();
+ if(k==' '){e.preventDefault();play=!play;pb()}else if((k=='arrowright'||k=='arrowleft')&&!(t.closest&&t.closest('.cv'))){e.preventDefault();play=false;pb();ang=(ang+(k=='arrowright'?5:-5)+720)%720;setCur()}
+ else if(k=='t')$('th').click();else if(k=='m')od(true)});
+document.querySelectorAll('#pre button').forEach(b=>b.onclick=()=>{const p=b.dataset.p;
+ if(p=='reset'){SL.forEach(x=>setV(x[0],x[4]));S.ld='RL'}else{S.ld=p;const[l,en]=LP[p];setV('l',l);setV('e',en*+$('vm').value)}
+ document.querySelectorAll('#pre button').forEach(x=>x.classList.toggle('on',p=='reset'?x.dataset.p=='RL':x===b));dr();run()});
+$('sls').addEventListener('input',()=>document.querySelectorAll('#pre button').forEach(x=>x.classList.remove('on')));
 function setS(id,v){$(id).value=v;$(id).dispatchEvent(new Event('input'))}
-{const cv=$('c4');let dn=false;const f=e=>{if(!MP)return;const r=cv.getBoundingClientRect(),p=Math.max(0,Math.min(1,(e.clientX-r.left-10)/(r.width-20)));if(e.clientY-r.top<100)setS('l',p<.005?0:rn(1e-3*Math.pow(10,8*p)));else if(M.thy)setS('al',Math.round(p*180))};
- cv.onpointerdown=e=>{dn=true;cv.setPointerCapture(e.pointerId);f(e)};cv.onpointermove=e=>{if(dn)f(e)};cv.onpointerup=cv.onpointercancel=()=>{dn=false}}
-$('jl').onclick=()=>{if(MP&&MP.Lc)setS('l',rn(Math.min(1e5,MP.Lc*1.01)))};$('ja').onclick=()=>{if(MP&&MP.Ac!=null)setS('al',Math.floor(MP.Ac))};
 pb();dr();run();try{if(!localStorage.getItem('rl-seen')){localStorage.setItem('rl-seen','1');od(true)}}catch(e){}requestAnimationFrame(tick);
 </script></body></html>
